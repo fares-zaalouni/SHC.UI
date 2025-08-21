@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -5,9 +6,11 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using SHC.UI.Windows.Interfaces;
 using SHC.UI.Windows.Pages;
 using SHC.UI.Windows.Services;
 using SHC.UI.WinUI.MVVM.Common;
+using SHC.UI.WinUI.MVVM.Interfaces;
 using SHC.UI.WinUI.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,12 +30,13 @@ namespace SHC.UI.Windows
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        NavigationService NavigationService => NavigationService.GetInstance();
         MainViewModel ViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MainViewModel(NavigationService);
+            var NavigationService = App.Services.GetRequiredService<INavigationConfigurator>();
+
+            ViewModel = App.Services.GetRequiredService<MainViewModel>();
             NavigationService.RegisterFrame("MainFrame", MainFrame);
             NavigationService.RegisterPage(PageKey.Login, "MainFrame", typeof(LoginPage));
             NavigationService.RegisterPage(PageKey.Content, "MainFrame", typeof(ContentPage));

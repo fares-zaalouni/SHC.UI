@@ -1,5 +1,5 @@
 ﻿using SHC.UI.Shared.Common;
-using SHC.UI.Shared.DTOs;
+using SHC.UI.Shared.DTOs.Requests;
 using System.Text;
 using System.Text.Json;
 
@@ -19,10 +19,10 @@ namespace SHC.UI.Shared.Services
 
         }
 
-        public async Task RegisterPatient(RegisterPatientDTO registerPatientDTO)
+        public async Task RegisterPatient(RegisterPatientRequestDTO registerPatientDTO)
         {
             var json = JsonSerializer.Serialize(registerPatientDTO);
-            Console.WriteLine(json);
+
             // Wrap JSON in HttpContent with proper encoding and media type
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -30,11 +30,6 @@ namespace SHC.UI.Shared.Services
             try
             {
                 var response = await _httpClient.PostAsync(_apiSettings.RegisterPatientEndpoint, content);
-                Console.WriteLine(_apiSettings.RegisterPatientEndpoint);
-
-                Console.WriteLine(response);
-                
-
             }
             catch (Exception ex)
             {

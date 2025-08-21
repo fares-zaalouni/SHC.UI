@@ -10,9 +10,10 @@
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Spacing="10">
         <TextBlock Text="Login" FontSize="24" HorizontalAlignment="Center"/>
-        <TextBox x:Name="UsernameTextBox" Header="Username"/>
-        <PasswordBox x:Name="PasswordBox" Header="Password"/>
+        <TextBox  Header="Phone Number" Text="{x:Bind ViewModel.PhoneNumber, Mode=TwoWay}"/>
+        <PasswordBox  Header="Password" PasswordChanged="PasswordBox_PasswordChanged"/>
         <Button Content="Login" Click="{x:Bind ViewModel.Login}"/>
-        <TextBlock x:Name="ErrorText" Foreground="Red" Visibility="Collapsed"/>
+        <TextBlock Foreground="Red" Visibility="Visible" FontSize="12"  Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"/>
+        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Background="LightGray"/>
     </StackPanel>
 </Page>

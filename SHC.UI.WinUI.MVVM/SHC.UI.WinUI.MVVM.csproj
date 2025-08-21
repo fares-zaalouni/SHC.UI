@@ -11,4 +11,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SHC.UI.Shared\SHC.UI.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

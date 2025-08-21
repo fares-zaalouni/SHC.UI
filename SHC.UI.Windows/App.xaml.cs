@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -6,12 +7,17 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using SHC.UI.Shared.Services;
+using SHC.UI.Windows.Interfaces;
 using SHC.UI.Windows.Pages;
 using SHC.UI.Windows.Services;
+using SHC.UI.WinUI.MVVM.Interfaces;
+using SHC.UI.WinUI.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -29,6 +35,7 @@ namespace SHC.UI.Windows
     public partial class App : Application
     {
         private Window? _window;
+        public static IServiceProvider Services { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -37,6 +44,28 @@ namespace SHC.UI.Windows
         public App()
         {
             InitializeComponent();
+            var services = new ServiceCollection();
+
+            services.AddSingleton(new HttpClient());
+
+            // Register services that depend on it
+            services.AddSingleton<HttpService>();
+            services.AddSingleton<UserService>();
+
+            // One Singleton for bot page registration and navigation
+            services.AddSingleton<NavigationService>();
+            services.AddSingleton<INavigationService>(sp => sp.GetRequiredService<NavigationService>());
+            services.AddSingleton<INavigationConfigurator>(sp => sp.GetRequiredService<NavigationService>());
+
+
+            // Register VMs
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<LoginPageViewModel>();
+            
+
+
+
+            Services = services.BuildServiceProvider();
         }
 
         /// <summary>

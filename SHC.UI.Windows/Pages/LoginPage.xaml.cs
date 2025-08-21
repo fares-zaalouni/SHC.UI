@@ -1,4 +1,5 @@
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SHC.UI.Windows.Services;
@@ -20,11 +21,11 @@ public sealed partial class LoginPage : Page
     public LoginPage()
     {
         InitializeComponent();
-        ViewModel = new LoginPageViewModel(NavigationService.GetInstance());
+        ViewModel = App.Services.GetRequiredService<LoginPageViewModel>();
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
     {
-
+        ViewModel.Password = ((PasswordBox)sender).Password;
     }
 }
