@@ -2,6 +2,7 @@
 using SHC.UI.Shared.DTOs.Requests;
 using SHC.UI.Shared.DTOs.Responses;
 using SHC.UI.Shared.Models.Records;
+using SHC.UI.Shared.Settings;
 
 
 namespace SHC.UI.Shared.Services;
@@ -10,15 +11,22 @@ public class UserService
 {
     private readonly HttpService _httpService;
     private readonly ApiSettings _apiSettings;
+    private readonly ILocalSettingsManager _localSettingsManager;
 
-    public UserService(HttpService httpService)
+    public UserService(
+        HttpService httpService,
+        ILocalSettingsManager localSettingsManager
+        )
     {
         _httpService = httpService;
         _apiSettings = ConfigProvider.ApiSettings;
+        _localSettingsManager = localSettingsManager;
     }
     public async Task<Result<LoginInfo>> LoginAsync(string phoneNumber, string password)
     {
-        LoginRequestDTO loginRequest = new(phoneNumber, password, "Patient");
+        //The id should be generated first time the app runs and stored in local settings
+        LocalSettings localSettings = _localSettingsManager.GetSettings()!;
+        LoginRequestDTO loginRequest = new(phoneNumber, password, "Patient", localSettings.DeviceId);
         try
         {
             HttpResponse<LoginResponseDTO?> result = await _httpService.PostAsync<LoginResponseDTO>(_apiSettings.LoginEndpoint, loginRequest);

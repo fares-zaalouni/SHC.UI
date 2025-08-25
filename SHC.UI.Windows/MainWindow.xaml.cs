@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using SHC.UI.Shared.Settings;
 using SHC.UI.Windows.Interfaces;
 using SHC.UI.Windows.Pages;
 using SHC.UI.Windows.Services;
@@ -34,12 +35,30 @@ namespace SHC.UI.Windows
         public MainWindow()
         {
             InitializeComponent();
-            var NavigationService = App.Services.GetRequiredService<INavigationConfigurator>();
+
 
             ViewModel = App.Services.GetRequiredService<MainViewModel>();
+            RegisterFrameAndPages();
+            InitSettings();
+        }
+
+        private void RegisterFrameAndPages()
+        {
+            var NavigationService = App.Services.GetRequiredService<INavigationConfigurator>();
             NavigationService.RegisterFrame("MainFrame", MainFrame);
             NavigationService.RegisterPage(PageKey.Login, "MainFrame", typeof(LoginPage));
             NavigationService.RegisterPage(PageKey.Content, "MainFrame", typeof(ContentPage));
+        }
+
+        private void InitSettings()
+        {
+            var settingsManager = App.Services.GetRequiredService<ILocalSettingsManager>();
+            LocalSettings? localSettings = settingsManager.GetSettings();
+            if(localSettings == null)
+            {
+                localSettings = settingsManager.DefaultSettings();
+                settingsManager.SaveSettings(localSettings);
+            }
         }
     }
 

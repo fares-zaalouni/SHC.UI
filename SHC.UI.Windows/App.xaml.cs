@@ -8,9 +8,11 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using SHC.UI.Shared.Services;
+using SHC.UI.Shared.Settings;
 using SHC.UI.Windows.Interfaces;
 using SHC.UI.Windows.Pages;
 using SHC.UI.Windows.Services;
+using SHC.UI.Windows.Settings;
 using SHC.UI.WinUI.MVVM.Interfaces;
 using SHC.UI.WinUI.MVVM.ViewModels;
 using System;
@@ -49,13 +51,17 @@ namespace SHC.UI.Windows
             services.AddSingleton(new HttpClient());
 
             // Register services that depend on it
-            services.AddSingleton<HttpService>();
-            services.AddSingleton<UserService>();
+            services.AddTransient<HttpService>();
+            services.AddTransient<UserService>();
+
 
             // One Singleton for bot page registration and navigation
             services.AddSingleton<NavigationService>();
             services.AddSingleton<INavigationService>(sp => sp.GetRequiredService<NavigationService>());
             services.AddSingleton<INavigationConfigurator>(sp => sp.GetRequiredService<NavigationService>());
+
+            //Settings Service
+            services.AddTransient<ILocalSettingsManager, LocalSettingsManager>();
 
 
             // Register VMs
