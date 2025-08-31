@@ -67,7 +67,11 @@ namespace SHC.UI.Windows
             // Register VMs
             services.AddTransient<MainViewModel>();
             services.AddTransient<LoginPageViewModel>();
-            
+            services.AddTransient<ContentPageViewModel>();
+            services.AddTransient<RegisterPatientViewModel>();
+            services.AddTransient<PatientEssentialInfoViewModel>();
+            services.AddTransient<PatientOptionalInfoViewModel>();
+
 
 
 

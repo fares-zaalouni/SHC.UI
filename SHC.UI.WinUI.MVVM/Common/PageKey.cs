@@ -16,6 +16,9 @@ public class PageKey
     }
 
     public static readonly PageKey Login = new PageKey("Login");
+    public static readonly PageKey RegisterPatient = new PageKey("RegisterPatient");
     public static readonly PageKey Content = new PageKey("Content");
     public static readonly PageKey Settings = new PageKey("Settings");
+    public static readonly PageKey PatientEssentialInfo = new PageKey("PatientEssentialInfo");
+    public static readonly PageKey PatientOptionalInfo = new PageKey("PatientOptionalInfo");
 }

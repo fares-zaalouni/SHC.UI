@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SHC.UI.Windows.Pages.PatientEssentialInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SHC.UI.Windows.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollView>
+        <Grid Margin="0 10 50 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid ColumnSpacing="20" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding FirstName.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding FirstName.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding FirstName.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding LastName.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding LastName.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding LastName.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding DateOfBirth.Label, Mode=OneWay}"/>
+                        <DatePicker Date="{Binding DateOfBirth.Value, Mode=TwoWay}"/>
+                        <TextBlock Text="{Binding DateOfBirth.ErrorMessage, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Phone.Label, Mode=OneWay}"/>
+                        <TextBox Text="{Binding Phone.Value, Mode=TwoWay}"/>
+                        <TextBlock Text="{Binding Phone.ErrorMessage, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Password.Label, Mode=OneWay}"/>
+                        <TextBox Text="{Binding Password.Value, Mode=TwoWay}"/>
+                        <TextBlock Text="{Binding Password.ErrorMessage, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ConfirmPassword.Label, Mode=OneWay}"/>
+                        <TextBox Text="{Binding ConfirmPassword.Value, Mode=TwoWay}"/>
+                        <TextBlock Text="{Binding ConfirmPassword.ErrorMessage, Mode=OneWay}"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="Register"
+                Command="{x:Bind ViewModel.RegisterPatientCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="100"
+                Margin="0 10 0 30"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</Page>

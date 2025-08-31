@@ -16,6 +16,9 @@
   <ItemGroup>
     <None Remove="Pages\ContentPage.xaml" />
     <None Remove="Pages\LoginPage.xaml" />
+    <None Remove="Pages\PatientEssentialInfoPage.xaml" />
+    <None Remove="Pages\PatientOptionalInfoPage.xaml" />
+    <None Remove="Pages\RegisterPatientPage.xaml" />
     <None Remove="Styles\ButtonStyles.xaml" />
     <None Remove="Styles\Colors.xaml" />
     <None Remove="Styles\DarkTheme.xaml" />
@@ -53,6 +56,11 @@
     <ProjectReference Include="..\SHC.UI.WinUI.MVVM\SHC.UI.WinUI.MVVM.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Pages\RegisterPatientPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Pages\ContentPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,6 +82,20 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PatientOptionalInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PatientEssentialInfoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

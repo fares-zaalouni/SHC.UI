@@ -32,6 +32,10 @@ public partial class LoginPageViewModel : ObservableObject
     }
     public async Task Login()
     {
+        //remove when done
+        _navigationService.Navigate(PageKey.Content);
+
+
         ErrorMessage = string.Empty;
         IsLoading = true;
         Result<LoginInfo> result = await _userService.LoginAsync(PhoneNumber, Password);

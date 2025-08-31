@@ -54,10 +54,6 @@ public class NavigationService : INavigationService, INavigationConfigurator
     }
     public  void Navigate(PageKey pageKey, object parameter = null)
     {
-        foreach (var page in _pages)
-        {
-            Debug.WriteLine($"PageKey: {page.Key.Key}, FrameKey: {page.Value.Item1}, PageType: {page.Value.Item2}");
-        }
         var frame = GetFrameForPage(pageKey);
         frame.Navigate(_pages[pageKey].Item2, parameter);
     }

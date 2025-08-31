@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SHC.UI.Windows.Styles">
-    
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
-            <Color x:Key="PrimaryColor">#1f7a8c</Color>
-            <Color x:Key="BorderColor">#022b3a</Color>
-            <Color x:Key="ForegroundColor">White</Color>
+            <Color x:Key="PrimaryColor">#03045E</Color>
+            <Color x:Key="BorderColor">#00B4D8</Color>
+            <Color x:Key="ForegroundColor">#03045E</Color>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
