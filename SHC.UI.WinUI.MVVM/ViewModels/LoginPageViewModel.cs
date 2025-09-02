@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SHC.UI.Shared.Common;
+using SHC.UI.Shared.Models;
 using SHC.UI.Shared.Models.Records;
 using SHC.UI.Shared.Services;
 using SHC.UI.WinUI.MVVM.Common;
@@ -33,12 +34,12 @@ public partial class LoginPageViewModel : ObservableObject
     public async Task Login()
     {
         //remove when done
-        _navigationService.Navigate(PageKey.Content);
+        //_navigationService.Navigate(PageKey.Content);
 
 
         ErrorMessage = string.Empty;
         IsLoading = true;
-        Result<LoginInfo> result = await _userService.LoginAsync(PhoneNumber, Password);
+        Result<LoginInfo> result = await _userService.LoginAsync(PhoneNumber, Password, Roles.Secretary);
         IsLoading = false;
         if (result.IsSuccess)
         {

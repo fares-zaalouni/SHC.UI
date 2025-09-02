@@ -8,8 +8,47 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Text="Patient Optional Info Page" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        <Button Content="Go Back" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Command="{x:Bind ViewModel.GoBackCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
-    </Grid>
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Spacing="20">
+                <StackPanel>
+                    <TextBlock Text="{Binding Email.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding Email.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding Email.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding Cin.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding Cin.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding Cin.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding EmergencyContactName.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding EmergencyContactName.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding EmergencyContactName.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding EmergencyContactPhone.Label, Mode=OneWay}"/>
+                    <TextBox Text="{Binding EmergencyContactPhone.Value, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding EmergencyContactPhone.ErrorMessage, Mode=OneWay}"/>
+                </StackPanel>
+            </StackPanel>
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="Register"
+                HorizontalAlignment="Right"
+                Command="{x:Bind ViewModel.SubmitCommand}"
+                VerticalAlignment="Center"
+                Width="100"
+                Margin="0 10 0 30"/>
+        </Grid>
+    </ScrollView>
 </Page>

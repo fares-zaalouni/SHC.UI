@@ -7,10 +7,14 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using SHC.UI.Shared.Common;
+using SHC.UI.Shared.Security;
 using SHC.UI.Shared.Services;
+using SHC.UI.Shared.Session;
 using SHC.UI.Shared.Settings;
 using SHC.UI.Windows.Interfaces;
 using SHC.UI.Windows.Pages;
+using SHC.UI.Windows.Security;
 using SHC.UI.Windows.Services;
 using SHC.UI.Windows.Settings;
 using SHC.UI.WinUI.MVVM.Interfaces;
@@ -48,11 +52,27 @@ namespace SHC.UI.Windows
             InitializeComponent();
             var services = new ServiceCollection();
 
-            services.AddSingleton(new HttpClient());
+            services.AddSingleton<HttpClient>(sp =>
+            {
+                return new HttpClient
+                {
+                    BaseAddress = new Uri(ConfigProvider.ApiSettings.BaseUrl)
+                };
+            });
 
             // Register services that depend on it
-            services.AddTransient<HttpService>();
+            services.AddTransient<IHttpService, HttpService>();
             services.AddTransient<UserService>();
+            services.AddTransient<IPatientService, PatientService>();
+
+
+            //Security
+            services.AddTransient<IAuthenticatedApiClient, AuthenticatedApiClient>();
+
+
+
+            // Credential Storage
+            services.AddTransient<ICredentialStorage, CredentialStorage>();
 
 
             // One Singleton for bot page registration and navigation
@@ -62,6 +82,10 @@ namespace SHC.UI.Windows
 
             //Settings Service
             services.AddTransient<ILocalSettingsManager, LocalSettingsManager>();
+
+
+            // Session Management
+            services.AddSingleton<ISessionManager, SessionManager>();
 
 
             // Register VMs

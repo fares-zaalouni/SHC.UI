@@ -11,6 +11,7 @@ namespace SHC.UI.Shared.Common
         public string BaseUrl { get; set; } = string.Empty;
         public string RegisterPatientEndpoint { get; set; } = string.Empty;
         public string LoginEndpoint { get; set; } = string.Empty;
+        public string RenewTokensEndpoint { get; set; } = string.Empty;
 
     }
 }

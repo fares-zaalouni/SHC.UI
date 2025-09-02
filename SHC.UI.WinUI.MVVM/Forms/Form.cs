@@ -29,9 +29,8 @@ public partial class Form : ObservableObject
         return isValid;
     }
 
-    public T CastTo<T>() where T : new()
+    public T CastTo<T>(T result) where T : new()
     {
-        T result = new T();
         foreach (var kvp in Fields)
         {
             var prop = typeof(T).GetProperty(kvp.Key, BindingFlags.Public | BindingFlags.Instance);

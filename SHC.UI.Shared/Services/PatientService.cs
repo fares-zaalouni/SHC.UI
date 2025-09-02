@@ -1,43 +1,35 @@
 ﻿using SHC.UI.Shared.Common;
 using SHC.UI.Shared.DTOs.Requests;
+using SHC.UI.Shared.DTOs.Responses;
+using SHC.UI.Shared.Models.Records;
+using SHC.UI.Shared.Security;
 using System.Text;
 using System.Text.Json;
 
 
 namespace SHC.UI.Shared.Services
 {
-    public class PatientService
+    public class PatientService : IPatientService
     {
-        private readonly HttpClient _httpClient;
+        private IAuthenticatedApiClient _authenticatedApiClient;
         private readonly ApiSettings _apiSettings;
 
-        public PatientService(HttpClient httpClient)
+        public PatientService(IAuthenticatedApiClient authenticatedApiClient)
         {
-            _httpClient = httpClient;
+            _authenticatedApiClient = authenticatedApiClient;
             _apiSettings = ConfigProvider.ApiSettings;
-            _httpClient.BaseAddress = new Uri(_apiSettings.BaseUrl);
-
         }
 
-        public async Task RegisterPatient(RegisterPatientRequestDTO registerPatientDTO)
+        public async Task<Result<RegisterPatientResponseDTO>> RegisterPatient(RegisterPatientRequestDTO registerPatientDTO)
         {
-            var json = JsonSerializer.Serialize(registerPatientDTO);
-
-            // Wrap JSON in HttpContent with proper encoding and media type
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // Send POST request with JSON body
-            try
+            var result = await _authenticatedApiClient.PostAsync<RegisterPatientResponseDTO>(_apiSettings.RegisterPatientEndpoint, registerPatientDTO);
+            return result.StatusCode switch
             {
-                var response = await _httpClient.PostAsync(_apiSettings.RegisterPatientEndpoint, content);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            
-
-            // Return true if successful (status code 200-299)
+                System.Net.HttpStatusCode.OK => Result<RegisterPatientResponseDTO>.Success(result.Content!),
+                System.Net.HttpStatusCode.InternalServerError => Result<RegisterPatientResponseDTO>.Failure(new ErrorDetail(ErrorType.Server, "Server Issue.")),
+                System.Net.HttpStatusCode.Unauthorized => Result<RegisterPatientResponseDTO>.Failure(new ErrorDetail(ErrorType.Unauthorized, "Session Expired, redirectin to login")),
+                _ => Result<RegisterPatientResponseDTO>.Failure(new ErrorDetail(ErrorType.Unexpected, "Some unexpected issue occured, please try again later."))
+            };
         }
     }
 }

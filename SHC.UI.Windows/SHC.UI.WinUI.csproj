@@ -11,7 +11,6 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
-	<WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pages\ContentPage.xaml" />
@@ -46,12 +45,18 @@
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
   </ItemGroup>
+<ItemGroup>
+	<Reference Include="Windows">
+		<HintPath>$(WindowsSDK_DesktopReferencesPath)\Windows.winmd</HintPath>
+	</Reference>
+</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.0" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\SHC.UI.WinUI.MVVM\SHC.UI.WinUI.MVVM.csproj" />
   </ItemGroup>
@@ -99,7 +104,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-
+	
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if

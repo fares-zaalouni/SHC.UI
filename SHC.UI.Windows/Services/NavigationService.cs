@@ -1,6 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.WindowsAppSDK.Runtime.Packages;
 using SHC.UI.Windows.Interfaces;
 using SHC.UI.WinUI.MVVM.Common;
 using SHC.UI.WinUI.MVVM.Interfaces;

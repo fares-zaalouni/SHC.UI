@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using SHC.UI.Shared.DTOs.Requests;
+using SHC.UI.Windows.Dialogs;
 using SHC.UI.WinUI.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,13 @@ namespace SHC.UI.Windows.Pages
         public PatientOptionalInfoPage()
         {
             InitializeComponent();
+            var dialogFactory = new DialogFactory(XamlRoot);
+            this.Loaded += (s, e) =>
+            {
+                var dialogFactory = new DialogFactory(this.XamlRoot);
+                ViewModel.SetDialogFactory(dialogFactory);
+            };
+            DataContext = ViewModel;    
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

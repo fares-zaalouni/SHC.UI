@@ -72,13 +72,13 @@ public partial class PatientEssentialInfoViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void RegisterPatient()
+    public void Continue()
     {
         if (EssentialPatientInfo.IsValid())
         {
-            RegisterPatientRequestDTO dto = EssentialPatientInfo.CastTo<RegisterPatientRequestDTO>();
+            RegisterPatientRequestDTO dto = new();
+            EssentialPatientInfo.CastTo(dto);
             _navigationService.Navigate(PageKey.PatientOptionalInfo, dto);
-            // Proceed with registration logic
         }
 
     }
